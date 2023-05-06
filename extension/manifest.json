@@ -1,0 +1,25 @@
+{
+    "manifest_version":3,
+    "name":"News summary",
+    "version":"0.1",
+    "description":"Bring news summary from an API",
+    "permissions":[
+        "tabs",
+        "activeTab",
+        "webRequest",
+        "http://*"
+          ],
+    "icons":{
+        "128":"images/icon.png"
+    },
+    "action":{
+        "default_popup":"popup.html"
+    },
+    "background":{
+        "service_worker":"background.js"
+    },
+    "content_scripts": [{
+        "matches": ["<all_urls>"],
+        "js": ["popup.js", "request.js"]
+      }]
+}
