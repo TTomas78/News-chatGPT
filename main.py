@@ -65,7 +65,6 @@ class NewsController():
             
                 previous_index = index
                 index += news_number-len(news_summaries)
-            #The summary include escape characters, so we need to replace them
             object_list = []
             for news in news_summaries:
                 object_list.append(GetAllNewsResponse.NewsData(summary=news['summary'],link="{}".format(news['link']), title=news['title']))

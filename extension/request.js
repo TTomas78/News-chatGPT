@@ -27,28 +27,24 @@ if (wordsNumber.value == "" || language.value == "" || softLimit.value == ""){
   return
 }
 
-var spinner = document.querySelector('.contenedor-spinner');
+var spinner = document.querySelector('.spinner-container');
 spinner.style.display = 'flex';
 chrome.runtime.sendMessage({name: "getAll",wordsNumber: wordsNumber.value, language: language.value, softLimit: softLimit.value},(data) => {
    spinner.style.display = 'none';
 
-  // Actualizar la UI del popup con los datos recibidos de background.js
-  // Obtener la lista en la que mostraremos los datos
+
     const myList = document.getElementById("NewsList");
 
-    // Vaciar la lista por si tenía elementos previos
     myList.innerHTML = "";
 
       data.news.forEach(function(data) {
         myList.appendChild(generateHTMLElements(data))
         });
-        //hacer que se abra en una nueva pestaña
      
 
 })};
 
 function getOneNews(){
-  //data validation:
   wordsNumber = document.getElementById('wordsNumber')
   language = document.getElementById('language')
   softLimit = document.getElementById('softLimit')
@@ -63,15 +59,13 @@ function getOneNews(){
     return
   }
   
-  var spinner = document.querySelector('.contenedor-spinner');
+  var spinner = document.querySelector('.spinner-container');
   spinner.style.display = 'flex';
   chrome.runtime.sendMessage({name: "getOne",wordsNumber: wordsNumber.value, language: language.value, softLimit: softLimit.value, link: newsLink.value},(data) => {
   spinner.style.display = 'none';
-// Actualizar la UI del popup con los datos recibidos de background.js
-// Obtener la lista en la que mostraremos los datos
+
   const myList = document.getElementById("NewsList");
 
-  // Vaciar la lista por si tenía elementos previos
   myList.innerHTML = "";
   if (data.error != undefined){
     alert(data.error)
@@ -98,10 +92,9 @@ function generateHTMLElements(data){
   parent.appendChild(text);
   parent.appendChild(link);
   parent.appendChild(hr);
-  //hacer que se abra en una nueva pestaña
   link.addEventListener('click', function(event) {
-    event.preventDefault(); // Evita la acción por defecto del enlace
-    window.open(data.link, '_blank'); // Abre el enlace en una ventana externa
+    event.preventDefault(); 
+    window.open(data.link, '_blank'); 
   })
   return parent
 };
